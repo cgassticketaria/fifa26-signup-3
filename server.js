@@ -33,8 +33,8 @@ app.post('/fifa26', async (req, res) => {
 });
 
 app.get('/fifa26', async (req, res) => {
-    console.log("received get")
-    res.status(200).send('hello world');
+    signup();
+    res.status(200).send('starting signup');
 })
 
 async function writeEmailToCSV(email) {
@@ -160,4 +160,3 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-signup();
