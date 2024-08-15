@@ -157,8 +157,8 @@ async function signup() {
         const responseProxy = await axios.get('https://premium-pig-enough.ngrok-free.app/proxyList');
         const proxyList = responseProxy.data; // Assuming the response is the proxyList
 
-        for (let i = 0; i < accountList.length; i += 20) { // Reduced batch size
-            const batch = accountList.slice(i, i + 20);
+        for (let i = 0; i < accountList.length; i += 50) { // Reduced batch size
+            const batch = accountList.slice(i, i + 50);
 
             await Promise.all(batch.map(account => handleSignup(account, signedUpEmails, proxyList)));
         }
