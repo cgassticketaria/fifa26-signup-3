@@ -174,7 +174,7 @@ async function getRandomNumber(min, max) {
 }
 
 app.get('/download-output', (req, res) => {
-    const filePath = path.join(__dirname, 'output.csv');
+    const filePath = path.join(__dirname, 'outputs', 'signed_up_emails.csv');
     res.download(filePath, 'output.csv', (err) => {
         if (err) {
             console.error('Error sending the file:', err);
