@@ -37,7 +37,7 @@ app.get('/fifa26', async (req, res) => {
     res.status(200).send('starting signup');
 });
 
-app.get('/db', async (req, res) => {
+app.get('/accountList', async (req, res) => {
     try {
         const accountList = await pullAccountList();
         res.status(200).json(accountList);  // Send the accountList as a JSON response
@@ -45,6 +45,16 @@ app.get('/db', async (req, res) => {
         res.status(500).send('Error fetching account list');
     }
 });
+
+app.get('/proxyList', async (req, res) => {
+    try {
+        const proxyList = await pullProxyList();
+        res.status(200).json(proxyList);  // Send the accountList as a JSON response
+    } catch (error) {
+        res.status(500).send('Error fetching account list');
+    }
+});
+
 
 async function writeEmailToCSV(email) {
     const csvContent = `${email}\n`;
@@ -141,12 +151,10 @@ async function handleSignup(account, signedUpEmails, proxies) {
 async function signup() {
     const signedUpEmails = await readExistingEmails();
     try {
-        const data = await fs.readFile(accountFilePath, 'utf8');
-        const accountData = JSON.parse(data);
-
-        const response = await axios.get('https://premium-pig-enough.ngrok-free.app/db');
-        const accountList = response.data; // Assuming the response is the accountList
-        const proxyList = await pullProxyList();
+        const responseAccount = await axios.get('https://premium-pig-enough.ngrok-free.app/accountList');
+        const accountList = responseAccount.data; // Assuming the response is the accountList
+        const responseProxy = await axios.get('https://premium-pig-enough.ngrok-free.app/proxyList');
+        const proxyList = responseProxy.data; // Assuming the response is the proxyList
 
         for (let i = 0; i < accountList.length; i += 100) { // Reduced batch size
             const batch = accountList.slice(i, i + 100);
