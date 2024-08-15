@@ -9,6 +9,7 @@ const { getProxies } = require('./proxySetup');
 const { submitOtp } = require('./submitOtp');
 const { generateHeader } = require('./headerGen');
 const { pullAccountList, pullProxyList } = require('./db');
+const axios = require('axios');
 
 const app = express();
 const accountFilePath = path.join(__dirname, 'accounts.json');
