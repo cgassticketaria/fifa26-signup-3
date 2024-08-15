@@ -157,8 +157,8 @@ async function signup() {
         const responseProxy = await axios.get('https://premium-pig-enough.ngrok-free.app/proxyList');
         const proxyList = responseProxy.data; // Assuming the response is the proxyList
 
-        for (let i = 0; i < accountList.length; i += 100) { // Reduced batch size
-            const batch = accountList.slice(i, i + 100);
+        for (let i = 0; i < accountList.length; i += 20) { // Reduced batch size
+            const batch = accountList.slice(i, i + 20);
 
             await Promise.all(batch.map(account => handleSignup(account, signedUpEmails, proxyList)));
         }
@@ -173,6 +173,15 @@ async function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+app.get('/download-output', (req, res) => {
+    const filePath = path.join(__dirname, 'output.csv');
+    res.download(filePath, 'output.csv', (err) => {
+        if (err) {
+            console.error('Error sending the file:', err);
+            res.status(500).send('Error downloading the file');
+        }
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

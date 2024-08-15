@@ -14,17 +14,17 @@ const poolConnection = mysql.createPool({
 
 const db = drizzle(poolConnection);
 
-async function checkConnection() {
-    try {
-        const connection = await poolConnection.getConnection();
-        connection.release();
-        console.log("Database is connected")
-    } catch (error){
-        console.error("Database connection failed: ", error)
-    }
-}
+// async function checkConnection() {
+//     try {
+//         const connection = await poolConnection.getConnection();
+//         connection.release();
+//         console.log("Database is connected")
+//     } catch (error){
+//         console.error("Database connection failed: ", error)
+//     }
+// }
 
-checkConnection();
+// checkConnection();
 
 const accounts = mysqlTable('accounts', {
     id: int('id').primaryKey(),
