@@ -93,7 +93,7 @@ async function pullAccountList() {
                 )
             )
             .orderBy(asc(accounts.name))
-            .limit(20000)
+            .limit(50000)
         
         // Return the result
         return accountList;    
@@ -103,4 +103,4 @@ async function pullAccountList() {
 }
 
 
-module.exports = { pullAccountList, pullProxyList };
+module.exports = { db, pullAccountList, pullProxyList };

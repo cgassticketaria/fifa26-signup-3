@@ -35,7 +35,16 @@ app.post('/fifa26', async (req, res) => {
 app.get('/fifa26', async (req, res) => {
     signup();
     res.status(200).send('starting signup');
-})
+});
+
+app.get('/db', async (req, res) => {
+    try {
+        const accountList = await pullAccountList();
+        res.status(200).json(accountList);  // Send the accountList as a JSON response
+    } catch (error) {
+        res.status(500).send('Error fetching account list');
+    }
+});
 
 async function writeEmailToCSV(email) {
     const csvContent = `${email}\n`;
@@ -135,7 +144,8 @@ async function signup() {
         const data = await fs.readFile(accountFilePath, 'utf8');
         const accountData = JSON.parse(data);
 
-        const accountList = await pullAccountList();
+        const response = await axios.get('https://premium-pig-enough.ngrok-free.app/db');
+        const accountList = response.data; // Assuming the response is the accountList
         const proxyList = await pullProxyList();
 
         for (let i = 0; i < accountList.length; i += 100) { // Reduced batch size
