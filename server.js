@@ -34,8 +34,14 @@ app.post('/fifa26', async (req, res) => {
 });
 
 app.get('/fifa26', async (req, res) => {
-    signup();
-    res.status(200).send('starting signup');
+    await signup();
+    const filePath = path.join(__dirname, 'outputs', 'signed_up_emails.csv');
+    res.download(filePath, 'output.csv', (err) => {
+        if (err) {
+            console.error('Error sending the file:', err);
+            res.status(500).send('Error downloading the file');
+        }
+    });
 });
 
 app.get('/accountList', async (req, res) => {

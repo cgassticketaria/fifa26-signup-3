@@ -92,8 +92,8 @@ async function pullAccountList() {
                     eq(domains.providerId, 2)
                 )
             )
-            .orderBy(asc(accounts.name))
-            .limit(50000)
+            .orderBy(desc(accounts.name))
+            .limit(60000)
         
         // Return the result
         return accountList;    
