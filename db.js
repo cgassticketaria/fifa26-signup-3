@@ -1,7 +1,7 @@
 const { drizzle } = require("drizzle-orm/mysql2");
 const mysql = require("mysql2/promise"); 
 const { mysqlTable, int, varchar, tinyint } = require('drizzle-orm/mysql-core');
-const { eq, like, and, between, gt, or, isNotNull, asc } = require('drizzle-orm');
+const { eq, like, and, between, gt, or, isNotNull, asc, desc } = require('drizzle-orm');
 require('dotenv').config();
 
 const poolConnection = mysql.createPool({
